@@ -40,7 +40,8 @@
         "release": "np"
     },
     "dependencies": {
-        "query-string": "^6.12.1"
+        "query-string": "^6.12.1",
+        "tslib": "^2.0.0"
     },
     "devDependencies": {
         "@tarojs/taro": "^3.0.0-rc.0",

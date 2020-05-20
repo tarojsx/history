@@ -2008,6 +2008,11 @@ tslib@^1.9.0:
   resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha1-yIHhPMcBWJTtkUhi0nZDb6mkcEM=
 
+tslib@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/tslib/download/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
+  integrity sha1-GNE/wtzgQFHiDwdMyDh/2Aic5PM=
+
 type-fest@^0.11.0:
   version "0.11.0"
   resolved "https://registry.npm.taobao.org/type-fest/download/type-fest-0.11.0.tgz#97abf0872310fed88a5c466b25681576145e33f1"
