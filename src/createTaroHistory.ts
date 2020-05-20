@@ -189,6 +189,7 @@ export class TaroHistory {
 
             if (this.pendingNavigateOptions) {
                 this.navigate(this.pendingNavigateOptions)
+                delete this.pendingNavigateOptions
             }
         }
 
