@@ -71,7 +71,7 @@ import history from '@tarojsx/history'
 // 监听路由
 const unlisten = history.listen((location, action) => {
     // location 是 Taro 路由参数对象.
-    console.log('Router changed:', action, location.path, location.params);
+    console.log('路由变化:', action, location.path, location.params);
 });
 
 /**********
@@ -86,22 +86,22 @@ const unlisten = history.listen((location, action) => {
 // 初始页面为 /pages/index
 
 history.push('/pages/list')
-// Router changed: navigateTo '/pages/list'
+// 路由变化: navigateTo '/pages/list'
 
 history.push('/pages/item', { id: 1 })
-// Router changed: navigateTo '/pages/item' { id: 1 }
+// 路由变化: navigateTo '/pages/item' { id: 1 }
 
 console.log(`页面栈长度 ${history.length}, 当前页面 ${history.location.path}, 最后动作 ${history.action}.`)
 // 页面栈长度 3, 当前页面 /pages/item, 最后动作 navigateTo.
 
 history.goBack()
-// Router changed: navigateBack '/pages/list'
+// 路由变化: navigateBack '/pages/list'
 
 history.replace('/pages/about')
-// Router changed: redirectTo '/pages/about'
+// 路由变化: redirectTo '/pages/about'
 
 history.push('/pages/tabpage')
-// Router changed: switchTab '/pages/tabpage'
+// 路由变化: switchTab '/pages/tabpage'
 
 // 停止监听
 unlisten()
@@ -126,6 +126,7 @@ unlisten()
 
 ## TODO
 
+- [ ] [taro rc1 #6412](https://github.com/NervJS/taro/pull/6412)
 - [ ] `goForward()`
 - [ ] `action: 'reLaunch'`
 
