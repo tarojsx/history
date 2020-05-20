@@ -123,6 +123,7 @@ unlisten()
 特殊情况:
 1. 从 tab1,page1 到 tab1, 假定为 navigateBack.
 2. reLaunch 暂时无法判断.
+3. 循环页面可能发生意想不到的效果, page1,page2,page1
 
 ## TODO
 
