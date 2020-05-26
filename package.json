@@ -44,7 +44,7 @@
         "tslib": "^2.0.0"
     },
     "devDependencies": {
-        "@tarojs/taro": "^3.0.0-rc.0",
+        "@tarojs/taro": "^3.0.0-rc.1",
         "@types/query-string": "^6.3.0",
         "np": "^6.2.3",
         "rimraf": "^3.0.2",

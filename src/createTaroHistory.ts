@@ -2,6 +2,7 @@ import Taro from '@tarojs/taro'
 import queryString from 'query-string'
 
 interface TaroHistoryOptions {
+    /** app.config.js 内容, taro 3.0.0-rc.1 及以上可省略. */
     appConfig?: Taro.AppConfig
 }
 
@@ -16,7 +17,7 @@ export interface TaroHistoryRouterInfo {
     onReady?: string
 }
 
-export type TaroHistoryAction = 'navigateTo' | 'redirectTo' | 'navigateBack' | 'switchTab'
+export type TaroHistoryAction = 'appLaunch' | 'navigateTo' | 'redirectTo' | 'navigateBack' | 'switchTab'
 
 type TaroHistoryNavigateOptions = { url: string; action: 'push' | 'replace'; params?: Record<string, any> }
 
@@ -39,7 +40,7 @@ const patchTaroCurrentRouter = () => {
                 return taroCurrentRouterValue
             },
             // 每个页面 onLoad 和 onShow 事件都会设置这个值, onLoad 比 onShow 更详细.
-            set(value) {
+            set(value: TaroHistoryRouterInfo) {
                 taroCurrentRouterValue = value
                 taroCurrentRouterChangeHandlers.forEach((fn) => fn(value))
             },
@@ -49,11 +50,6 @@ const patchTaroCurrentRouter = () => {
 
 export class TaroHistory {
     constructor(private options = {} as TaroHistoryOptions) {
-        // taro 3.0.0-rc.1 以上
-        if (!options.appConfig && window['__taroAppConfig']) {
-            options.appConfig = window['__taroAppConfig']
-        }
-
         patchTaroCurrentRouter()
         taroCurrentRouterChangeHandlers.push(this.handleRouterChange)
     }
@@ -132,17 +128,33 @@ export class TaroHistory {
     }
 
     private handlers: TaroHistoryChangeHandler[] = []
+    private safeCallHandlers(router: TaroHistoryRouterInfo, action: TaroHistoryAction) {
+        for (const fn of this.handlers) {
+            try {
+                fn(router, action)
+            } catch (err) {}
+        }
+    }
 
     private ready = !!Taro.getCurrentPages().length
 
+    private _taroAppConfig: Taro.AppConfig
+    private get taroAppConfig() {
+        return (
+            this._taroAppConfig ||
+            (this._taroAppConfig = this.options.appConfig || ((window as any).__taroAppConfig as Taro.AppConfig))
+        )
+    }
     private get tabBarList() {
-        return this.options.appConfig?.tabBar?.list || []
+        return this.taroAppConfig?.tabBar?.list || []
+    }
+    private get tabBarPagePaths() {
+        return this.tabBarList.map((item) => `/${item.pagePath}`)
     }
     private isTabPagePath(pagePath: string) {
         return this.tabBarList.some((item) => item.pagePath === pagePath)
     }
 
-    private tabBarPagePaths = this.options.appConfig?.tabBar?.list?.map((item) => `/${item.pagePath}`) || []
     private pendingNavigateOptions: TaroHistoryNavigateOptions
     private async navigate(options: TaroHistoryNavigateOptions) {
         // 页面栈没初始化前, 路由跳转不生效, 记录在 pending 变量里, 等待第一个页面 onLoad 时运行.
@@ -186,6 +198,8 @@ export class TaroHistory {
 
         if (!this.ready && currentPages.length) {
             this.ready = true
+
+            this.safeCallHandlers(location, 'appLaunch')
 
             if (this.pendingNavigateOptions) {
                 this.navigate(this.pendingNavigateOptions)
@@ -232,7 +246,7 @@ export class TaroHistory {
                 this.location = location
                 this.action = action
 
-                this.handlers.forEach((fn) => fn(location, action))
+                this.safeCallHandlers(location, action)
             }
         }
 
