@@ -63,6 +63,10 @@
 
 提供监听路由变化的能力, 即使是点击页面上的"返回"按钮或使用 `<navigator />` 组件.
 
+## 需求
+
+taro 3.0.0-rc.1 +
+
 ## 用法
 
 ```js
@@ -127,8 +131,9 @@ unlisten()
 
 ## TODO
 
-- [ ] [taro rc1 #6412](https://github.com/NervJS/taro/pull/6412)
+- [x] [taro rc1 #6412](https://github.com/NervJS/taro/pull/6412)
 - [ ] `goForward()`
+- [x] `action: 'appLaunch'`
 - [ ] `action: 'reLaunch'`
 
 ## 支持
