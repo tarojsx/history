@@ -54,14 +54,16 @@ export class TaroHistory {
         taroCurrentRouterChangeHandlers.push(this.handleRouterChange)
     }
 
-    /** 页面栈长度 */
-    length: number
-
     /** 当前页面路由信息 */
     location: TaroHistoryRouterInfo
 
     /** 路由至此的动作 */
     action: TaroHistoryAction
+    
+    /** 页面栈长度 */
+    get length() {
+        return Taro.getCurrentPages().length
+    }
 
     /** 导航到页面. 类似 `navigateTo`, 自动判断 `switchTab` */
     async push(url: string, params?: any) {
