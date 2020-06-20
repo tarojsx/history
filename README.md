@@ -129,6 +129,12 @@ unlisten()
 2. reLaunch 暂时无法判断.
 3. 循环页面可能发生意想不到的效果, page1,page2,page1
 
+## FAQ
+
+**为什么不使用 `wx.onAppRoute`?**
+
+这是一个私有的 API, 在其他端兼容性不明.
+
 ## TODO
 
 - [x] [taro rc1 #6412](https://github.com/NervJS/taro/pull/6412)
