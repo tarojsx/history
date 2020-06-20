@@ -244,7 +244,6 @@ export class TaroHistory {
             }
 
             if (action) {
-                this.length = currentPages.length
                 this.location = location
                 this.action = action
 
