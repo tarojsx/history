@@ -40,15 +40,15 @@
         "release": "np"
     },
     "dependencies": {
-        "query-string": "^6.12.1",
+        "query-string": "^6.13.1",
         "tslib": "^2.0.0"
     },
     "devDependencies": {
-        "@tarojs/taro": "^3.0.0-rc.1",
+        "@tarojs/taro": "^3.0.0-rc.5",
         "@types/query-string": "^6.3.0",
-        "np": "^6.2.3",
+        "np": "^6.2.4",
         "rimraf": "^3.0.2",
-        "typescript": "^3.9.3"
+        "typescript": "^3.9.5"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org",
