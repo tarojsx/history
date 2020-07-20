@@ -66,11 +66,11 @@ export class TaroHistory {
     }
 
     /** 导航到页面. 类似 `navigateTo`, 自动判断 `switchTab` */
-    async push(url: string, params?: any) {
+    async push<T extends object>(url: string, params?: T) {
         return await this.navigate({ url, action: 'push', params })
     }
 
-    async replace(url: string, params?: any) {
+    async replace<T extends object>(url: string, params?: T) {
         return await this.navigate({ url, action: 'replace', params })
     }
 
