@@ -14,7 +14,9 @@ export interface TaroHistoryRouterInfo {
     scene?: number
     shareTicket?: string
     prerender?: boolean
-    onReady?: string
+    onReady: string
+    onHide: string,
+    onShow: string
 }
 
 export type TaroHistoryAction = 'appLaunch' | 'navigateTo' | 'redirectTo' | 'navigateBack' | 'switchTab'
@@ -59,7 +61,7 @@ export class TaroHistory {
 
     /** 路由至此的动作 */
     action: TaroHistoryAction
-    
+
     /** 页面栈长度 */
     get length() {
         return Taro.getCurrentPages().length
